@@ -1,0 +1,21 @@
+#FROM ubuntu:latest
+
+FROM node:latest
+
+WORKDIR /root
+
+#RUN apt-get update && apt-get --assume-yes install mysql-client && \
+#    apt-get install curl && curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+#    apt-get install nodejs && npm install mysql
+
+#RUN apt-get update && apt-get --assume-yes install mysql-client
+
+#RUN ["/bin/bash","-c","npm","install", "mysql"]
+
+COPY app .
+
+RUN npm install mysql
+
+EXPOSE 8082
+
+ENTRYPOINT ["node" , "app"]

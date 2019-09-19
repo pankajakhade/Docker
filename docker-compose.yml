@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nodejsapp:
+     image: pankajakhade/nodejsapp:latest 
+     container_name: nodejsapp
+     restart: always
+     networks:
+      - my-net #We need to create this metwork first
+     ports:
+      - 80:8082
+  mariadb:
+     image: mariadb:latest
+     container_name: mariadb
+     environment:
+      - MYSQL_ROOT_PASSWORD=root
+     networks:
+      - my-net #We need to create this metwork first
+networks:
+  my-net:
+     driver: bridge

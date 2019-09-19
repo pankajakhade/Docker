@@ -1,0 +1,21 @@
+var mysql = require('mysql');
+var con = mysql.createConnection({
+  host: "mariadb",
+  user: "root",
+  password: "root",
+  database: "mysql"
+});
+var com_name = "";
+con.connect(function(err) {
+  if (err) throw err;
+  console.log('Connected')
+  con.query("select host from user where host = 'localhost'", function (err, result, fields) {
+    if (err) throw err;
+    com_name = result[0]['Host'];
+  });
+});
+var http = require('http');
+http.createServer(function (req, res) {
+  name = com_name;
+  res.end("<html>Host in user table in mysql DB <b>" + name + "</b></html>"); //end the response
+}).listen(8082);
